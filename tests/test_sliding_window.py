@@ -21,7 +21,7 @@ class TestAddDelay(unittest.TestCase):
         """
         sliding_window = SlidingWindow(SLIDING_WINDOW_SIZE)
         network_delay = 100
-        for _ in xrange(SLIDING_WINDOW_SIZE + 1):
+        for _ in range(SLIDING_WINDOW_SIZE + 1):
             sliding_window.add_delay(network_delay)
         self.assertEqual(len(sliding_window.delays), SLIDING_WINDOW_SIZE)
 
