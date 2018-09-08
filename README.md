@@ -15,3 +15,9 @@ Every time window is moved one measurement forward, all measurements in a window
 - If window limits are exceeded, remove the first element of the list with the original order from both lists -> worst case scenario this will take O(*window_size*)
 
 Now on each step we spend O(*window_size*) time instead of O(*window_size* log*window_size*)
+
+### Test & Profile
+
+1. Run tests ```python3 -m unittest discover tests```
+2. Profile code ```python3 -m cProfile -o timeStats.profile script.py [input file name] [window size]```
+Will store results to timeStats.profile
