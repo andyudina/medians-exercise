@@ -17,3 +17,14 @@ class SlidingWindow(object):
         self._sliding_window_size = sliding_window_size
         # List of int: network delays in current window
         self.delays = []
+
+    def add_delay(self, network_delay):
+        """
+        Add network delay to sliding window and move window forward if needed
+        """
+        if len(self.delays) < self._sliding_window_size:
+            # Append delay to the end of the list if window is not full
+            self.delays.append(network_delay)
+            return
+        # Move window one step forward
+        self.delays = self.delays[1: ] + [network_delay]

@@ -1,0 +1,36 @@
+import unittest
+
+from sliding_window import SlidingWindow
+
+SLIDING_WINDOW_SIZE = 3
+
+class TestAddDelay(unittest.TestCase):
+    """Test case for SlidingWindow.add_delay interface
+    """
+
+    def test_delay_is_added(self):
+        """Delay is added to the end of sliding window
+        """
+        sliding_window = SlidingWindow(SLIDING_WINDOW_SIZE)
+        network_delay = 100
+        sliding_window.add_delay(network_delay)
+        self.assertListEqual(sliding_window.delays, [network_delay])
+
+    def test_sliding_window_size_is_correct(self):
+        """We limit the number of measurements in sliding window
+        """
+        sliding_window = SlidingWindow(SLIDING_WINDOW_SIZE)
+        network_delay = 100
+        for _ in xrange(SLIDING_WINDOW_SIZE + 1):
+            sliding_window.add_delay(network_delay)
+        self.assertEqual(len(sliding_window.delays), SLIDING_WINDOW_SIZE)
+
+    def test_window_moves_when_new_element_is_added(self):
+        """Sliding window moves forward when new element is added
+        """
+        sliding_window = SlidingWindow(SLIDING_WINDOW_SIZE)
+        network_delays = [100, 101, 102, 103]
+        for delay in network_delays:
+            sliding_window.add_delay(delay)
+        expected_window = [101, 102, 103]
+        self.assertListEqual(sliding_window.delays, expected_window)
