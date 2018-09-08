@@ -2,6 +2,10 @@
 
 Exports SlidingWindow class, which stores network delays and provides and interface to calculate median over delays
 """
+from statistics import median
+
+# Minimum length of delays array, which is required to calculate median
+MIN_LEN_TO_CALCULATE_MEDIAN = 2
 
 class SlidingWindow(object):
     """Calculate the median over a set of network delay measurements.
@@ -30,3 +34,12 @@ class SlidingWindow(object):
             return
         # Move window one step forward
         self.delays = self.delays[1: ] + [network_delay]
+
+    def get_median(self):
+        """
+        Calculate median of delay values in current window
+        Returns -1 if there is only one value in the window
+        """
+        if len(self.delays) < MIN_LEN_TO_CALCULATE_MEDIAN:
+            return -1
+        return median(self.delays)

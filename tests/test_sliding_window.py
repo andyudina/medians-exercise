@@ -34,3 +34,30 @@ class TestAddDelay(unittest.TestCase):
             sliding_window.add_delay(delay)
         expected_window = [101, 102, 103]
         self.assertListEqual(sliding_window.delays, expected_window)
+
+
+class TestGetMedian(unittest.TestCase):
+    """Test case for SlidingWindow.get_median interface
+    """
+
+    def test_only_one_delay_in_window(self):
+        """Return -1 if window consists only of one delay
+        """
+        sliding_window = SlidingWindow(SLIDING_WINDOW_SIZE)
+        sliding_window.delays = [100]
+        self.assertEqual(sliding_window.get_median(), -1)
+
+    def test_odd_number_of_values_in_window(self):
+        """Return value of ((n + 1)/2)th item of sorted measurements array
+        """
+        sliding_window = SlidingWindow(SLIDING_WINDOW_SIZE)
+        sliding_window.delays = [100, 102, 101]
+        self.assertEqual(sliding_window.get_median(), 101)
+
+    def test_even_number_of_values_in_window(self):
+        """Return value of [((n)/2)th item + ((n)/2 + 1)th item ] /2 of
+        sorted measurements array
+        """
+        sliding_window = SlidingWindow(SLIDING_WINDOW_SIZE)
+        sliding_window.delays = [100, 102]
+        self.assertEqual(sliding_window.get_median(), 101)
