@@ -1,14 +1,13 @@
 """Calculate medians using sliding window
 """
 import argparse
-import os
 import sys
 
 from sliding_window import SlidingWindow
 
 MIN_WINDOW_SIZE = 2
 
-def calculateAndPrintMedians(
+def calculate_and_print_medians(
         input_file, output_file, sliding_window_size):
     """Calculate median using sliding window on delays from input_file
     and store results to output file
@@ -42,7 +41,7 @@ def is_valid_window_size(value):
     Returns:
         Window size converted to int
     """
-    def raiseArgparseError(value):
+    def raise_argparse_error(value):
         """Raise ArgumentTypeError with expected window size description
         """
         raise argparse.ArgumentTypeError(
@@ -50,13 +49,17 @@ def is_valid_window_size(value):
             'Should be integer greater or equal %d' % (value, MIN_WINDOW_SIZE))
     try:
         value = int(value)
-    except (ValueError, TypeError) as e:
-        raiseArgparseError(value)
+    except (ValueError, TypeError):
+        raise_argparse_error(value)
     if value < MIN_WINDOW_SIZE:
-        raiseArgparseError(value)
+        raise_argparse_error(value)
     return value
 
 def main(arguments):
+    """Main script
+
+    Calculate sliding window median for measurements in file
+    """
     # Parse command line arguments
     parser = argparse.ArgumentParser(
         description=__doc__,
@@ -70,7 +73,7 @@ def main(arguments):
                         default=sys.stdout, type=argparse.FileType('w'))
     args = parser.parse_args(arguments)
     # Calculate medians and print into file
-    calculateAndPrintMedians(
+    calculate_and_print_medians(
         args.infile, args.outfile,
         args.sliding_window_size)
     # Close file handlers

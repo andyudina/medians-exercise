@@ -1,3 +1,5 @@
+"""Test suit for SlidingWindow class
+"""
 import unittest
 
 from sliding_window import SlidingWindow
