@@ -69,11 +69,13 @@ def main(arguments):
     parser.add_argument('-o', '--outfile', help="Output file",
                         default=sys.stdout, type=argparse.FileType('w'))
     args = parser.parse_args(arguments)
-
     # Calculate medians and print into file
     calculateAndPrintMedians(
         args.infile, args.outfile,
         args.sliding_window_size)
+    # Close file handlers
+    args.infile.close()
+    args.outfile.close()
 
 if __name__ == '__main__':
     main(sys.argv[1:])
