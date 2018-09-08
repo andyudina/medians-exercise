@@ -17,3 +17,6 @@ coverage.xml
 
 # Test files
 test-vectors
+
+# Profiler logs
+*.profile
